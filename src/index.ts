@@ -2,7 +2,7 @@ import fs from 'node:fs'
 
 import type { TemplatedApp } from 'uWebSockets.js'
 
-import { transformToRoute } from './utils'
+import { sortByNestedParams, transformToRoute } from './utils'
 
 type SoftString<T extends string> = T | (string & {})
 
@@ -11,6 +11,7 @@ const PATTERN_DEFAULT = '**/*.{ts,tsx,mjs,js,jsx,cjs}'
 
 export const autoloadRoutes = ({
   importKey = 'default',
+  failGlob = true,
   pattern = PATTERN_DEFAULT,
   prefix = '',
   routesDir = ROUTES_DIR_DEFAULT,
@@ -25,6 +26,11 @@ export const autoloadRoutes = ({
     * @default 'default'
     */
   importKey?: SoftString<'default'> | ((file: unknown) => string)
+  /**
+    * Throws an error if no matches are found
+    * @default true
+    */
+  failGlob?: boolean
   /**
     * Pattern
     * @example pattern only .ts files
@@ -56,9 +62,11 @@ export const autoloadRoutes = ({
     throw new Error(`${routesDir} isn't a directory`)
 
   const files = typeof Bun === 'undefined'
-    ? fs.promises.glob(pattern, { cwd: routesDir })
-    : (new Bun.Glob(pattern)).scan({ cwd: routesDir })
-  for await (const file of files) {
+    ? fs.globSync(pattern, { cwd: routesDir })
+    : await Array.fromAsync((new Bun.Glob(pattern)).scan({ cwd: routesDir }))
+  if (failGlob && files.length === 0)
+    throw new Error(`No matches found in ${routesDir} (you can disable this error with 'failGlob' option to false)`)
+  for (const file of sortByNestedParams(files)) {
     const filePath = `${routesDir}/${file}`
     const importedFile = await import(/* @vite-ignore */ filePath)
     const reolvedImportName = typeof importKey === 'string' ? importKey : importKey(file)

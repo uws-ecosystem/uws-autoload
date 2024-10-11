@@ -1,3 +1,16 @@
+const getParamsCount = (path: string) => {
+  return path.match(/\[(.*?)\]/gu)?.length || 0
+}
+
+/**
+ * Sorts by the smallest parameters
+ * 'name' is smaller than parameter '[id]'; apply ascending sort:
+ * ['/user/[id]', '/user/name'] -> ['/user/name', '/user/[id]']
+ */
+export const sortByNestedParams = (routes: string[]): string[] => {
+  return routes.sort((a, b) => getParamsCount(a) - getParamsCount(b))
+}
+
 export const transformToRoute = (path: string) => path
   // Clean the url extensions
   .replace(/\.(ts|tsx|mjs|js|jsx|cjs)$/u, '')
