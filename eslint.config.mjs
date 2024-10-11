@@ -14,6 +14,7 @@ export default pluginTypescript.config(
 
       'unicorn/empty-brace-spaces': 0,
       'unicorn/filename-case': 0,
+      'unicorn/no-anonymous-default-export': 0,
       'unicorn/no-empty-file': 0,
       'unicorn/no-keyword-prefix': 0,
       'unicorn/no-null': 0,
