@@ -24,7 +24,7 @@ const generateReleaseNotes = async ({ github, owner, repo, versionTag, defaultBr
   return bodyWithoutReleasePr
 }
 
-const generatePr = async ({ github, context, defaultBranch, versionTag }) => {
+export const generatePr = async ({ github, context, defaultBranch, versionTag }) => {
   const { owner, repo } = context.repo
   const releaseNotes = await generateReleaseNotes({ github, owner, repo, versionTag, defaultBranch })
 
@@ -38,7 +38,7 @@ const generatePr = async ({ github, context, defaultBranch, versionTag }) => {
   })
 }
 
-const release = async ({ github, context, defaultBranch, versionTag }) => {
+export const release = async ({ github, context, defaultBranch, versionTag }) => {
   const { owner, repo } = context.repo
   const releaseNotes = await generateReleaseNotes({ github, owner, repo, versionTag, defaultBranch })
 
@@ -64,9 +64,4 @@ const release = async ({ github, context, defaultBranch, versionTag }) => {
     console.log("Couldn't delete release PR ref")
     console.log(err)
   }
-}
-
-module.exports = {
-  generatePr,
-  release
 }
