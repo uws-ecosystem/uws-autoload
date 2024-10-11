@@ -1,16 +1,19 @@
 # uws-autoload
-Plugin for [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) which autoload all routes in directory.
 
-Inspirated by [elysia-autoload](https://github.com/kravetsone/elysia-autoload).
+A plugin for [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) that autoloads all routes in a directory.
 
-## Install
+Inspired by [elysia-autoload](https://github.com/kravetsone/elysia-autoload).
+
+## Installation
+
 ```sh
 yarn add uws-autoload
 ```
 
 ## Usage
 
-### Register the plugin
+### Register the Plugin
+
 ```ts
 import { App } from 'uWebSockets.js'
 import { autoloadRoutes } from 'uws-autoload'
@@ -20,7 +23,7 @@ const port = +(process.env.PORT || 3000)
 const app = App()
 
 await autoloadRoutes({
-  // patern to scan route files
+  // Pattern to scan route files
   pattern: '**/*.ts',
   // Prefix to add to routes
   prefix: '/api',
@@ -37,7 +40,8 @@ app.listen(port, (listenSocket) => {
 })
 ```
 
-### Create route
+### Create a Route
+
 ```ts
 // /routes/index.ts
 import type { RecognizedString, TemplatedApp } from 'uWebSockets.js'
@@ -47,49 +51,48 @@ export default (pattern: RecognizedString, app: TemplatedApp) => app.get(pattern
 })
 ```
 
+### Directory Structure
 
-### Directory structure
-
-Guide how `uws-autoload` match routes
+Guide on how `uws-autoload` matches routes:
 
 ```
 ├── app.ts
 ├── routes
-    ├── index.ts         // index routes
-    ├── posts
-        ├── index.ts
-        └── [id].ts      // dynamic params
-    ├── likes
-        └── [...].ts     // wildcard
-    ├── domains
-        ├── @[...]       // wildcard with @ prefix
-            └──index.ts
-    ├── frontend
-        └──index.tsx     // usage of tsx extension
-    ├── events
-        └──(post).ts     // post and get will not be in the link
-        └──(get).ts
-    └── users.ts
+│   ├── index.ts         // index routes
+│   ├── posts
+│   │   ├── index.ts
+│   │   └── [id].ts      // dynamic params
+│   ├── likes
+│   │   └── [...].ts     // wildcard
+│   ├── domains
+│   │   ├── @[...]       // wildcard with @ prefix
+│   │   │   └── index.ts
+│   ├── frontend
+│   │   └── index.tsx    // usage of tsx extension
+│   ├── events
+│   │   ├── (post).ts    // post and get will not be in the link
+│   │   └── (get).ts
+│   └── users.ts
 └── package.json
 ```
 
-- /routes/index.ts → /
-- /routes/posts/index.ts → /posts
-- /routes/posts/[id].ts → /posts/:id
-- /routes/users.ts → /users
-- /routes/likes/[...].ts → /likes/\*
-- /routes/domains/@[...]/index.ts → /domains/@\*
-- /routes/frontend/index.tsx → /frontend
-- /routes/events/(post).ts → /events
-- /routes/events/(get).ts → /events
+- `/routes/index.ts` → `/`
+- `/routes/posts/index.ts` → `/posts`
+- `/routes/posts/[id].ts` → `/posts/:id`
+- `/routes/users.ts` → `/users`
+- `/routes/likes/[...].ts` → `/likes/*`
+- `/routes/domains/@[...]/index.ts` → `/domains/@*`
+- `/routes/frontend/index.tsx` → `/frontend`
+- `/routes/events/(post).ts` → `/events`
+- `/routes/events/(get).ts` → `/events`
 
 ### Options
 
 | Key               | Type    | Default                        | Description                                                         |
-| ----------------- | --------| ------------------------------ | ------------------------------------------------------------------- |
+| ----------------- | ------- | ------------------------------ | ------------------------------------------------------------------- |
 | failGlob?         | boolean | `true`                         | Throws an error if no matches are found                             |
 | importKey?        | string  | `default`                      | The key (name) of the exported function of route files              |
 | pattern?          | string  | `**/*.{ts,tsx,js,jsx,mjs,cjs}` | [Glob patterns](https://en.wikipedia.org/wiki/Glob_(programming))   |
 | prefix?           | string  | ` `                            | Prefix to be added to each route                                    |
 | routesDir?        | string  | `./routes`                     | The folder where routes are located (use *relative* path)           |
-| skipImportErrors? | boolean | `false`                        | Throws an error if there is an imprort error of a route file        |
+| skipImportErrors? | boolean | `false`                        | Throws an error if there is an import error of a route file         |
