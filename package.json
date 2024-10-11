@@ -24,6 +24,7 @@
     "od": "yarn outdated"
   },
   "devDependencies": {
+    "@types/bun": "^1.1.11",
     "@types/node": "^22.7.5",
     "@yarnpkg/sdks": "^3.2.0",
     "eslint": "^9.12.0",
