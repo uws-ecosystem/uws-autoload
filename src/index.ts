@@ -41,12 +41,12 @@ export const autoloadRoutes = ({
     */
   pattern?: string
   /**
-    * Prefix of routes
+    * Prefix to add to routes
     * @example prefix for APIs
     * ```ts
     * prefix: '/api'
     * ```
-    * @default ts,tsx,mjs,js,jsx,cjs
+    * @default ''
     */
   prefix?: string
   routesDir?: string
