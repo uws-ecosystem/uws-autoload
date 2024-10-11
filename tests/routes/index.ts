@@ -1,5 +1,7 @@
 // routes/index.ts
 
-import type { ElysiaApp } from "../index.test";
+import type { RecognizedString, TemplatedApp } from 'uWebSockets.js'
 
-export default (app: ElysiaApp) => app.get("/", { hello: "world" });
+export default (pattern: RecognizedString, app: TemplatedApp) => app.get(pattern, (res) => {
+  res.end('Hello World!')
+})
