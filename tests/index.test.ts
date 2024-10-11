@@ -2,7 +2,7 @@
 import { describe, test } from 'node:test'
 import { deepStrictEqual, strictEqual } from 'assert'
 
-import { sortByNestedParams, transformToRoute } from '../src/utils'
+import { sortRoutesByParams, transformToRoute } from '../src/utils'
 
 describe('Path to URL', () => {
   test('/index.ts → ', () => {
@@ -40,7 +40,7 @@ describe('Path to URL', () => {
 describe('sortByNestedParams', () => {
   test('Place routes with params to the end of array', () => {
     deepStrictEqual(
-      sortByNestedParams([
+      sortRoutesByParams([
         '/index.ts',
         '/likes/test.ts',
         '/domains/[test]/some.ts',
