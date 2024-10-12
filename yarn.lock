@@ -3571,10 +3571,20 @@ __metadata:
     typescript: "npm:5.5.4"
     typescript-eslint: "npm:^8.8.1"
     uWebSockets.js: "github:uNetworking/uWebSockets.js#v20.49.0"
+    uws-types: "npm:^0.0.1"
   peerDependencies:
     uWebSockets.js: "*"
   languageName: unknown
   linkType: soft
+
+"uws-types@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "uws-types@npm:0.0.1"
+  peerDependencies:
+    uWebSockets.js: "*"
+  checksum: 10c0/0726efd89c3918346e4e127b3d8e0d80f297060bcdb02d8516453058fefb247b56c32198c54cd32f74ebd91835c8155077276f1a58d464d796efd8a5d4f730e2
+  languageName: node
+  linkType: hard
 
 "validate-npm-package-license@npm:^3.0.1":
   version: 3.0.4
