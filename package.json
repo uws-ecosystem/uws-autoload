@@ -24,6 +24,9 @@
     "prepublishOnly": "yarn build",
     "od": "yarn outdated"
   },
+  "peerDependencies": {
+    "uWebSockets.js": "*"
+  },
   "devDependencies": {
     "@types/bun": "^1.1.11",
     "@types/node": "^22.7.5",
@@ -35,9 +38,6 @@
     "typescript": "5.5.4",
     "typescript-eslint": "^8.8.1",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.49.0"
-  },
-  "peerDependencies": {
-    "uWebSockets.js": "*"
   },
   "engines": {
     "node": ">=22"
