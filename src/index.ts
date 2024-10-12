@@ -5,8 +5,8 @@ import { sortRoutesByParams, transformToRoute } from './utils'
 
 type SoftString<T extends string> = T | (string & {})
 
-const ROUTES_DIR_DEFAULT = './routes'
-const PATTERN_DEFAULT = '**/*.{ts,tsx,mjs,js,jsx,cjs}'
+const DEFAULT_ROUTES_DIR = './routes'
+const DEFAULT_PATTERN = '**/*.{ts,tsx,mjs,js,jsx,cjs}'
 
 interface AutoloadRoutesOptions {
   /**
@@ -52,9 +52,9 @@ interface AutoloadRoutesOptions {
 export const autoloadRoutes = ({
   importKey = 'default',
   failGlob = true,
-  pattern = PATTERN_DEFAULT,
+  pattern = DEFAULT_PATTERN,
   prefix = '',
-  routesDir = ROUTES_DIR_DEFAULT,
+  routesDir = DEFAULT_ROUTES_DIR,
   skipImportErrors = false
 }: AutoloadRoutesOptions) => async (app: TemplatedApp) => {
   if (!fs.existsSync(routesDir)) {
