@@ -52,4 +52,4 @@ const release = async ({ github, context, defaultBranch, versionTag }) => {
   }
 }
 
-export default release
+module.exports = release
