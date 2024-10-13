@@ -1,6 +1,5 @@
 import fs from 'node:fs'
 import type { TemplatedApp } from 'uWebSockets.js'
-import type { WrappedTemplatedApp } from 'uws-types'
 
 import { sortRoutesByParams, transformToRoute } from './utils'
 
@@ -57,7 +56,7 @@ export const autoloadRoutes = ({
   prefix = '',
   routesDir = DEFAULT_ROUTES_DIR,
   skipImportErrors = false
-}: AutoloadRoutesOptions) => async (app: TemplatedApp | WrappedTemplatedApp) => {
+}: AutoloadRoutesOptions) => async (app: TemplatedApp | import('uws-wrapper').WrappedTemplatedApp) => {
   if (!fs.existsSync(routesDir)) {
     throw new Error(`Directory ${routesDir} doesn't exist`)
   }
