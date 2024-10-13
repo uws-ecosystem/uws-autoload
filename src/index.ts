@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import { pathToFileURL } from 'node:url'
 import type { TemplatedApp } from 'uWebSockets.js'
 
 import { sortRoutesByParams, transformToRoute } from './utils'
@@ -75,7 +76,7 @@ export const autoloadRoutes = ({
 
   for (const file of sortRoutesByParams(files)) {
     const filePath = `${routesDir}/${file}`
-    const importedFile = await import(/* @vite-ignore */ filePath)
+    const importedFile = await import(/* @vite-ignore */ pathToFileURL(filePath).href)
 
     const resolvedImportName = typeof importKey === 'string' ? importKey : importKey(importedFile)
     const importedRoute = importedFile[resolvedImportName]
