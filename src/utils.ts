@@ -1,5 +1,5 @@
-const countParams = (path: string): number => {
-  return (path.match(/\[(.*?)\]/gu) || []).length
+const countParams = (filepath: string): number => {
+  return (filepath.match(/\[(.*?)\]/gu) || []).length
 }
 
 /**
@@ -10,8 +10,8 @@ export const sortRoutesByParams = (routes: string[]): string[] => {
   return routes.sort((a, b) => countParams(a) - countParams(b))
 }
 
-export const transformToRoute = (path: string): string => {
-  return path
+export const transformToRoute = (filepath: string): string => {
+  return filepath
     // Clean the url extensions
     .replace(/\.(ts|tsx|mjs|js|jsx|cjs)$/u, '')
     // Fix windows slashes
