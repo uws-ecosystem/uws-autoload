@@ -107,9 +107,14 @@ Guide on how `uws-autoload` matches routes:
 | importKey?        | string  | `default`                      | The key (name) of the exported function of route files            |
 | pattern?          | string  | `**/*.{ts,tsx,js,jsx,mjs,cjs}` | [Glob patterns](https://en.wikipedia.org/wiki/Glob_(programming)) |
 | prefix?           | string  | ` `                            | Prefix to be added to each route                                  |
-| routesDir?        | string  | `./routes`                     | The folder where routes are located (use *relative* path)         |
+| routesDir?        | string  | `./routes`                     | The folder where routes are located (use a *relative* path)       |
 | skipImportErrors? | boolean | `false`                        | Throws an error if there is an import error of a route file       |
 
+### Transpile
+For `Vite` + Node.js and similar use cases, where `.ts` or `.tsx` files aren't transpiled, install [esbuild](https://github.com/evanw/esbuild).
+
+*Note*:
+> `Bun` internally transpiles every file it executes (both .js and .ts) → [Read more](https://bun.sh/docs/runtime/typescript#running-ts-files)
 
 ## License
 
