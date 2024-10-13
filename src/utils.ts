@@ -54,10 +54,10 @@ function getRandomId(length: number): string {
 /**
  * Transpile a file with esbuild
  */
-const transpileWithEsbuild = async (filePathAbsoluteFilesystem: string): Promise<string> => {
+const transpileWithEsbuild = async (filePath: string): Promise<string> => {
   const result = await build({
     platform: 'node',
-    entryPoints: [filePathAbsoluteFilesystem],
+    entryPoints: [filePath],
     write: false,
     target: ['esnext'],
     logLevel: 'silent',
@@ -80,11 +80,11 @@ function getTemporaryBuildFilePath(filePathAbsoluteFilesystem: string): string {
  * Execute a file
  * Old function name: `executeTranspiledFile`
  */
-export const importFile = async (filePathAbsoluteFilesystem: string): Promise<Record<string, unknown>> => {
-  const code = await transpileWithEsbuild(filePathAbsoluteFilesystem)
+export const importFile = async (filePath: string): Promise<Record<string, unknown>> => {
+  const code = await transpileWithEsbuild(filePath)
   // Alternative to using a temporary file: https://github.com/vitejs/vite/pull/13269
   //  - But seems to break source maps, so I don't think it's worth it
-  const filePathTmp = getTemporaryBuildFilePath(filePathAbsoluteFilesystem)
+  const filePathTmp = getTemporaryBuildFilePath(filePath)
   fs.writeFileSync(filePathTmp, code)
   let fileExports: Record<string, unknown>
   try {
