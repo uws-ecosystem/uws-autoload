@@ -2,7 +2,8 @@ import fs from 'node:fs'
 import { pathToFileURL } from 'node:url'
 import type { TemplatedApp } from 'uWebSockets.js'
 
-import { sortRoutesByParams, transformToRoute } from './utils'
+import { importFile, sortRoutesByParams, transformToRoute } from './utils'
+import path from 'node:path'
 
 type SoftString<T extends string> = T | (string & {})
 
@@ -76,7 +77,10 @@ export const autoloadRoutes = ({
 
   for (const file of sortRoutesByParams(files)) {
     const filePath = `${routesDir}/${file}`
-    const importedFile = await import(/* @vite-ignore */ pathToFileURL(filePath).href)
+    const extension = path.extname(filePath)
+    const importedFile = (extension === '.ts' || extension === '.tsx')
+      ? await importFile(filePath)
+      : await import(pathToFileURL(filePath).href)
 
     const resolvedImportName = typeof importKey === 'string' ? importKey : importKey(importedFile)
     const importedRoute = importedFile[resolvedImportName]

@@ -1,3 +1,8 @@
+import fs from 'node:fs'
+import { build } from 'esbuild'
+import path from 'node:path'
+import { pathToFileURL } from 'node:url'
+
 const countParams = (filepath: string): number => {
   return (filepath.match(/\[(.*?)\]/gu) || []).length
 }
@@ -33,3 +38,64 @@ export const transformToRoute = (filepath: string): string => {
     // Remove index from end of path
     .replace(/\/?index$/, '')
 }
+
+//#region Inspirated by 
+//#region https://github.com/vikejs/vike/blob/main/vike/utils/getRandomId.ts
+function getRandomId(length: number): string {
+  let randomId = ''
+  while (randomId.length < length) {
+    randomId += Math.random().toString(36).slice(2)
+  }
+  return randomId.slice(0, length)
+}
+//#endregion
+
+//#region https://github.com/vikejs/vike/blob/main/vike/node/plugin/plugins/importUserCode/v1-design/getVikeConfig/transpileAndExecuteFile.ts
+/**
+ * Transpile a file with esbuild
+ */
+const transpileWithEsbuild = async (filePathAbsoluteFilesystem: string): Promise<string> => {
+  const result = await build({
+    platform: 'node',
+    entryPoints: [filePathAbsoluteFilesystem],
+    write: false,
+    target: ['esnext'],
+    logLevel: 'silent',
+    format: 'esm',
+    absWorkingDir: process.cwd(),
+    bundle: true
+  })
+
+  return result.outputFiles[0].text
+}
+
+function getTemporaryBuildFilePath(filePathAbsoluteFilesystem: string): string {
+  const dirname = path.posix.dirname(filePathAbsoluteFilesystem)
+  const filename = path.posix.basename(filePathAbsoluteFilesystem)
+  const filePathTmp = path.posix.join(dirname, `${filename}.build-${getRandomId(12)}.mjs`)
+  return filePathTmp
+}
+
+/**
+ * Execute a file
+ * Old function name: `executeTranspiledFile`
+ */
+export const importFile = async (filePathAbsoluteFilesystem: string): Promise<Record<string, unknown>> => {
+  const code = await transpileWithEsbuild(filePathAbsoluteFilesystem)
+  // Alternative to using a temporary file: https://github.com/vitejs/vite/pull/13269
+  //  - But seems to break source maps, so I don't think it's worth it
+  const filePathTmp = getTemporaryBuildFilePath(filePathAbsoluteFilesystem)
+  fs.writeFileSync(filePathTmp, code)
+  let fileExports: Record<string, unknown>
+  try {
+    fileExports = await import(
+      pathToFileURL(filePathTmp).href
+    )
+  } finally {
+    // Clean
+    fs.unlinkSync(filePathTmp)
+  }
+  return fileExports
+}
+//#endregion
+//#endregion
