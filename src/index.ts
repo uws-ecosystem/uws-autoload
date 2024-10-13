@@ -78,9 +78,13 @@ export const autoloadRoutes = ({
   for (const file of sortRoutesByParams(files)) {
     const filePath = `${routesDir}/${file}`
     const extension = path.extname(filePath)
-    const importedFile = (extension === '.ts' || extension === '.tsx')
-      ? await importFile(filePath)
-      : await import(pathToFileURL(filePath).href)
+    let importedFile
+    if (typeof Bun === 'undefined')
+      importedFile = (extension === '.ts' || extension === '.tsx')
+        ? await importFile(filePath)
+        : await import(pathToFileURL(filePath).href)
+    else
+      importedFile = await import(filePath)
 
     const resolvedImportName = typeof importKey === 'string' ? importKey : importKey(importedFile)
     const importedRoute = importedFile[resolvedImportName]
