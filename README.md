@@ -114,5 +114,3 @@ Guide on how `uws-autoload` matches routes:
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-Licenses for third-party projects are listed in [THIRD-PARTY-LICENSE](THIRD-PARTY-LICENSE).
