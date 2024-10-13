@@ -1,6 +1,6 @@
 # uws-autoload
 
-A plugin for [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) that autoloads all routes in a directory.
+Plugin for [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) that autoloads all routes in a directory.
 
 Inspired by [elysia-autoload](https://github.com/kravetsone/elysia-autoload).
 
@@ -51,6 +51,19 @@ export default (pattern: RecognizedString, app: TemplatedApp) => app.get(pattern
 })
 ```
 
+### Create a Route with [uws-wrapper](https://github.com/rtritto/uws-wrapper)
+
+```ts
+// /routes/index.ts
+import type { RecognizedString } from 'uWebSockets.js'
+import type { WrappedTemplatedApp } from 'uws-wrapper'
+
+export default (pattern: RecognizedString, app: WrappedTemplatedApp) => app.get(pattern, async ({ getQuery, res }) => {
+  console.log('Query:', getQuery())
+  res.end('Hello World!')
+})
+```
+
 ### Directory Structure
 
 Guide on how `uws-autoload` matches routes:
@@ -88,11 +101,18 @@ Guide on how `uws-autoload` matches routes:
 
 ### Options
 
-| Key               | Type    | Default                        | Description                                                         |
-| ----------------- | ------- | ------------------------------ | ------------------------------------------------------------------- |
-| failGlob?         | boolean | `true`                         | Throws an error if no matches are found                             |
-| importKey?        | string  | `default`                      | The key (name) of the exported function of route files              |
-| pattern?          | string  | `**/*.{ts,tsx,js,jsx,mjs,cjs}` | [Glob patterns](https://en.wikipedia.org/wiki/Glob_(programming))   |
-| prefix?           | string  | ` `                            | Prefix to be added to each route                                    |
-| routesDir?        | string  | `./routes`                     | The folder where routes are located (use *relative* path)           |
-| skipImportErrors? | boolean | `false`                        | Throws an error if there is an import error of a route file         |
+| Key               | Type    | Default                        | Description                                                       |
+| ----------------- | ------- | ------------------------------ | ----------------------------------------------------------------- |
+| failGlob?         | boolean | `true`                         | Throws an error if no matches are found                           |
+| importKey?        | string  | `default`                      | The key (name) of the exported function of route files            |
+| pattern?          | string  | `**/*.{ts,tsx,js,jsx,mjs,cjs}` | [Glob patterns](https://en.wikipedia.org/wiki/Glob_(programming)) |
+| prefix?           | string  | ` `                            | Prefix to be added to each route                                  |
+| routesDir?        | string  | `./routes`                     | The folder where routes are located (use *relative* path)         |
+| skipImportErrors? | boolean | `false`                        | Throws an error if there is an import error of a route file       |
+
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+Licenses for third-party projects are listed in [THIRD-PARTY-LICENSE](THIRD-PARTY-LICENSE).
