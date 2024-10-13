@@ -3571,18 +3571,18 @@ __metadata:
     typescript: "npm:5.5.4"
     typescript-eslint: "npm:^8.8.1"
     uWebSockets.js: "github:uNetworking/uWebSockets.js#v20.49.0"
-    uws-types: "npm:^0.0.1"
+    uws-types: "npm:^0.0.2"
   peerDependencies:
-    uWebSockets.js: "*"
+    uWebSockets.js: ^20
   languageName: unknown
   linkType: soft
 
-"uws-types@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "uws-types@npm:0.0.1"
+"uws-types@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "uws-types@npm:0.0.2"
   peerDependencies:
-    uWebSockets.js: "*"
-  checksum: 10c0/0726efd89c3918346e4e127b3d8e0d80f297060bcdb02d8516453058fefb247b56c32198c54cd32f74ebd91835c8155077276f1a58d464d796efd8a5d4f730e2
+    uWebSockets.js: ^20
+  checksum: 10c0/e88421f3aae4f25f78a860a5819cf0d2a98b9995c97b02dc287b6b5a43c3860b92ad1888949603c4c2cedb2e968b6cd278cf8887b69b2fc90c862c3e833c0117
   languageName: node
   linkType: hard
 
