@@ -39,7 +39,6 @@ export const transformToRoute = (filepath: string): string => {
     .replace(/\/?index$/, '')
 }
 
-//#region Inspirated by 
 //#region https://github.com/vikejs/vike/blob/main/vike/utils/getRandomId.ts
 function getRandomId(length: number): string {
   let randomId = ''
@@ -69,6 +68,9 @@ const transpileWithEsbuild = async (filePath: string): Promise<string> => {
   return result.outputFiles[0].text
 }
 
+/**
+ * Get a temporary file path
+ */
 function getTemporaryBuildFilePath(filePathAbsoluteFilesystem: string): string {
   const dirname = path.posix.dirname(filePathAbsoluteFilesystem)
   const filename = path.posix.basename(filePathAbsoluteFilesystem)
@@ -97,5 +99,4 @@ export const importFile = async (filePath: string): Promise<Record<string, unkno
   }
   return fileExports
 }
-//#endregion
 //#endregion
