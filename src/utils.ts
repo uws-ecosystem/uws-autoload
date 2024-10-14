@@ -2,6 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
+let esbuild: typeof import('esbuild') | undefined
+
 const countParams = (filepath: string): number => {
   return (filepath.match(/\[(.*?)\]/gu) || []).length
 }
@@ -53,7 +55,13 @@ const getRandomId = (length: number): string => {
  * Transpile a file with esbuild
  */
 const transpileWithEsbuild = async (filePath: string): Promise<string> => {
-  const esbuild = await import('esbuild')
+  if (!esbuild) {
+    try {
+      esbuild = await import('esbuild')
+    } catch (error) {
+      throw new Error(`Failed to load 'esbuild': ${error}`)
+    }
+  }
   const result = await esbuild.build({
     platform: 'node',
     entryPoints: [filePath],
