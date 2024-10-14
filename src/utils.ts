@@ -1,5 +1,4 @@
 import fs from 'node:fs'
-import { build } from 'esbuild'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 
@@ -40,7 +39,7 @@ export const transformToRoute = (filepath: string): string => {
 }
 
 //#region https://github.com/vikejs/vike/blob/main/vike/utils/getRandomId.ts
-function getRandomId(length: number): string {
+const getRandomId = (length: number): string => {
   let randomId = ''
   while (randomId.length < length) {
     randomId += Math.random().toString(36).slice(2)
@@ -54,7 +53,8 @@ function getRandomId(length: number): string {
  * Transpile a file with esbuild
  */
 const transpileWithEsbuild = async (filePath: string): Promise<string> => {
-  const result = await build({
+  const esbuild = await import('esbuild')
+  const result = await esbuild.build({
     platform: 'node',
     entryPoints: [filePath],
     write: false,
@@ -71,11 +71,10 @@ const transpileWithEsbuild = async (filePath: string): Promise<string> => {
 /**
  * Get a temporary file path
  */
-function getTemporaryBuildFilePath(filePathAbsoluteFilesystem: string): string {
-  const dirname = path.posix.dirname(filePathAbsoluteFilesystem)
-  const filename = path.posix.basename(filePathAbsoluteFilesystem)
-  const filePathTmp = path.posix.join(dirname, `${filename}.build-${getRandomId(12)}.mjs`)
-  return filePathTmp
+const getTemporaryBuildFilePath = (filePath: string): string => {
+  const dirname = path.posix.dirname(filePath)
+  const filename = path.posix.basename(filePath)
+  return path.posix.join(dirname, `${filename}.build-${getRandomId(12)}.mjs`)
 }
 
 /**
@@ -88,15 +87,11 @@ export const importFile = async (filePath: string): Promise<Record<string, unkno
   //  - But seems to break source maps, so I don't think it's worth it
   const filePathTmp = getTemporaryBuildFilePath(filePath)
   fs.writeFileSync(filePathTmp, code)
-  let fileExports: Record<string, unknown>
   try {
-    fileExports = await import(
-      pathToFileURL(filePathTmp).href
-    )
+    return await import(pathToFileURL(filePathTmp).href)
   } finally {
     // Clean
     fs.unlinkSync(filePathTmp)
   }
-  return fileExports
 }
 //#endregion
