@@ -26,14 +26,10 @@
   },
   "peerDependencies": {
     "esbuild": "*",
-    "uWebSockets.js": "^20",
-    "uws-wrapper": "^0"
+    "uWebSockets.js": "^20"
   },
   "peerDependenciesMeta": {
     "esbuild": {
-      "optional": true
-    },
-    "uws-wrapper": {
       "optional": true
     }
   },
@@ -48,8 +44,7 @@
     "tsx": "^4.19.1",
     "typescript": "5.5.4",
     "typescript-eslint": "^8.8.1",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.49.0",
-    "uws-wrapper": "^0.0.1"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.49.0"
   },
   "engines": {
     "node": ">=22"

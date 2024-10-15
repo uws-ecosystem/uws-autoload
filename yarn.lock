@@ -2026,13 +2026,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-decode-uri-component@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "fast-decode-uri-component@npm:1.0.1"
-  checksum: 10c0/039d50c2e99d64f999c3f2126c23fbf75a04a4117e218a149ca0b1d2aeb8c834b7b19d643b9d35d4eabce357189a6a94085f78cf48869e6e26cc59b036284bc3
-  languageName: node
-  linkType: hard
-
 "fast-deep-equal@npm:^3.1.1, fast-deep-equal@npm:^3.1.3":
   version: 3.1.3
   resolution: "fast-deep-equal@npm:3.1.3"
@@ -2064,15 +2057,6 @@ __metadata:
   version: 2.0.6
   resolution: "fast-levenshtein@npm:2.0.6"
   checksum: 10c0/111972b37338bcb88f7d9e2c5907862c280ebf4234433b95bc611e518d192ccb2d38119c4ac86e26b668d75f7f3894f4ff5c4982899afced7ca78633b08287c4
-  languageName: node
-  linkType: hard
-
-"fastest-qs@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "fastest-qs@npm:1.0.1"
-  dependencies:
-    fast-decode-uri-component: "npm:^1.0.1"
-  checksum: 10c0/3cfc2a1199449e848890ab85810cba46391823d1bc0bcd0c109770d482fa92fbe711b772fdef4a072cdd66be70feacceb221161b474d23fbee43e7463d26dcf6
   languageName: node
   linkType: hard
 
@@ -3839,29 +3823,14 @@ __metadata:
     typescript: "npm:5.5.4"
     typescript-eslint: "npm:^8.8.1"
     uWebSockets.js: "github:uNetworking/uWebSockets.js#v20.49.0"
-    uws-wrapper: "npm:^0.0.1"
   peerDependencies:
     esbuild: "*"
     uWebSockets.js: ^20
-    uws-wrapper: ^0
   peerDependenciesMeta:
     esbuild:
       optional: true
-    uws-wrapper:
-      optional: true
   languageName: unknown
   linkType: soft
-
-"uws-wrapper@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "uws-wrapper@npm:0.0.1"
-  dependencies:
-    fastest-qs: "npm:^1.0.1"
-  peerDependencies:
-    uWebSockets.js: ^20
-  checksum: 10c0/63c8349e9b2b0397153c1b692da086381b9b37e0ad31c838cd0a92f247da2df34afbdcc20cd478546aa7509c6394cd3a0e9febb3c8e554c447afc8e497576374
-  languageName: node
-  linkType: hard
 
 "validate-npm-package-license@npm:^3.0.1":
   version: 3.0.4

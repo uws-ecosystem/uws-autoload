@@ -51,19 +51,6 @@ export default (pattern: RecognizedString, app: TemplatedApp) => app.get(pattern
 })
 ```
 
-### Create a Route with [uws-wrapper](https://github.com/rtritto/uws-wrapper)
-
-```ts
-// /routes/index.ts
-import type { RecognizedString } from 'uWebSockets.js'
-import type { WrappedTemplatedApp } from 'uws-wrapper'
-
-export default (pattern: RecognizedString, app: WrappedTemplatedApp) => app.get(pattern, async ({ getQuery, res }) => {
-  console.log('Query:', getQuery())
-  res.end('Hello World!')
-})
-```
-
 ### Directory Structure
 
 Guide on how `uws-autoload` matches routes:

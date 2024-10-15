@@ -58,7 +58,7 @@ export const autoloadRoutes = ({
   prefix = '',
   routesDir = DEFAULT_ROUTES_DIR,
   skipImportErrors = false
-}: AutoloadRoutesOptions) => async (app: import('uws-wrapper').WrappedTemplatedApp | TemplatedApp) => {
+}: AutoloadRoutesOptions) => async (app: TemplatedApp) => {
   if (!fs.existsSync(routesDir)) {
     throw new Error(`Directory ${routesDir} doesn't exist`)
   }
