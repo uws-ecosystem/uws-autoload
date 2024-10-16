@@ -51,14 +51,14 @@ interface AutoloadRoutesOptions {
   skipImportErrors?: boolean
 }
 
-export const autoloadRoutes = ({
+export const autoloadRoutes = async (app: TemplatedApp, {
   importKey = 'default',
   failGlob = true,
   pattern = DEFAULT_PATTERN,
   prefix = '',
   routesDir = DEFAULT_ROUTES_DIR,
   skipImportErrors = false
-}: AutoloadRoutesOptions) => async (app: TemplatedApp) => {
+}: AutoloadRoutesOptions) => {
   if (!fs.existsSync(routesDir)) {
     throw new Error(`Directory ${routesDir} doesn't exist`)
   }

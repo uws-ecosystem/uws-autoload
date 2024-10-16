@@ -20,16 +20,14 @@ import { autoloadRoutes } from 'uws-autoload'
 
 const port = +(process.env.PORT || 3000)
 
-const app = App()
-
-await autoloadRoutes({
+const app = await autoloadRoutes(App(), {
   // Pattern to scan route files
   pattern: '**/*.ts',
   // Prefix to add to routes
   prefix: '/api',
   // Source directory of route files: use "relative" path
   routesDir: './src/api'
-})(app)
+})
 
 app.listen(port, (listenSocket) => {
   if (listenSocket) {
