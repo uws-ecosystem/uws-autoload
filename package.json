@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "lint": "eslint src/**/*.ts",
-    "test": "tsx ./tests/index.test.ts",
+    "test": "tsx ./test/index.test.ts",
     "build": "pkgroll",
     "prepublishOnly": "yarn build",
     "od": "yarn outdated"
