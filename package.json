@@ -48,5 +48,26 @@
   },
   "engines": {
     "node": ">=22"
-  }
+  },
+  "keywords": [
+    "autoload",
+    "cross-platform",
+    "directory",
+    "fast",
+    "filesystem",
+    "http",
+    "http-server",
+    "lightweight",
+    "microws",
+    "middleware",
+    "plugin",
+    "router",
+    "proxy-protocol",
+    "uws",
+    "uwebsockets",
+    "uwebsocketsjs",
+    "websockets",
+    "µws",
+    "µwebsockets"
+  ]
 }
