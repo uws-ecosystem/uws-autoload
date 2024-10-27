@@ -1,6 +1,6 @@
 # uws-autoload
 
-Plugin for [uWebSockets.js](https://github.com/uNetworking/uWebSockets.js) that autoloads all routes in a directory.
+Plugin for [µWebSockets.js](https://github.com/uNetworking/uWebSockets.js) that autoloads all routes in a directory.
 
 Inspired by [elysia-autoload](https://github.com/kravetsone/elysia-autoload).
 
