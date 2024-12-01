@@ -2,7 +2,7 @@
   "name": "uws-autoload",
   "version": "0.4.0",
   "license": "MIT",
-  "packageManager": "yarn@4.5.1",
+  "packageManager": "yarn@4.5.3",
   "type": "module",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
@@ -34,17 +34,17 @@
     }
   },
   "devDependencies": {
-    "@types/bun": "^1.1.11",
-    "@types/node": "^22.7.6",
+    "@types/bun": "^1.1.14",
+    "@types/node": "^22.10.1",
     "@yarnpkg/sdks": "^3.2.0",
     "esbuild": "^0.24.0",
-    "eslint": "^9.12.0",
-    "eslint-plugin-unicorn": "^56.0.0",
-    "pkgroll": "^2.5.0",
-    "tsx": "^4.19.1",
-    "typescript": "^5.6.3",
-    "typescript-eslint": "^8.10.0",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.49.0"
+    "eslint": "^9.16.0",
+    "eslint-plugin-unicorn": "^56.0.1",
+    "pkgroll": "^2.5.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.16.0",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.51.0"
   },
   "engines": {
     "node": ">=22"
