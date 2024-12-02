@@ -1,4 +1,4 @@
-// routes/index.ts
+// routes/users/[id].ts
 
 import type { RecognizedString, TemplatedApp } from 'uWebSockets.js'
 
