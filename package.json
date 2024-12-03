@@ -17,6 +17,7 @@
     "dist"
   ],
   "scripts": {
+    "dev": "tsx ./start.ts",
     "lint": "eslint src/**/*.ts",
     "test": "tsx ./test/index.test.ts",
     "build": "pkgroll",
