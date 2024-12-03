@@ -42,11 +42,11 @@ app.listen(port, (listenSocket) => {
 
 ```ts
 // /routes/index.ts
-import type { RecognizedString, TemplatedApp } from 'uWebSockets.js'
+import type { TemplatedApp } from 'uWebSockets.js'
 
-export default (pattern: RecognizedString, app: TemplatedApp) => app.get(pattern, (res, req) => {
+export default ((res, req) => {
   res.end('Hello World!')
-})
+}) satisfies Parameters<TemplatedApp['get']>[1]
 ```
 
 ### Directory Structure

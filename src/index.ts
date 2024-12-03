@@ -7,6 +7,8 @@ import path from 'node:path'
 
 type SoftString<T extends string> = T | (string & {})
 
+type HttpMethod = 'get' | 'post' | 'options' | 'del' | 'patch' | 'put' | 'head' | 'connect' | 'trace' | 'any'
+
 const DEFAULT_ROUTES_DIR = './routes'
 const DEFAULT_PATTERN = '**/*.{ts,tsx,mjs,js,jsx,cjs}'
 
@@ -91,13 +93,13 @@ export const autoloadRoutes = async (app: TemplatedApp, {
       throw new Error(`${filePath} doesn't export ${resolvedImportName}`)
     }
 
-    const route = `${prefix}/${transformToRoute(file)}`
     if (typeof importedRoute === 'function') {
-      if (importedRoute.length === 2) {
-        importedRoute(route, app)
-      } else {
-        console.warn(`Exported function of ${filePath} must have 2 parameters (route isn't added)`)
-      }
+      const matchedFile = file.match(/\/?\((.*?)\)/)
+      const method = matchedFile ? matchedFile[1] as HttpMethod : 'get'
+      const route = `${prefix}/${transformToRoute(file)}`
+      app[method](route, importedRoute)
+    } else {
+      console.warn(`Exported function of ${filePath} is not a function`)
     }
   }
 
