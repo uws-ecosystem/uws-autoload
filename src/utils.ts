@@ -1,9 +1,3 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import { pathToFileURL } from 'node:url'
-
-let esbuild: typeof import('esbuild') | undefined
-
 const countParams = (filepath: string): number => {
   return (filepath.match(/\[(.*?)\]/gu) || []).length
 }
@@ -39,67 +33,3 @@ export const transformToRoute = (filepath: string): string => {
     // Remove index from end of path
     .replace(/\/?index$/, '')
 }
-
-//#region https://github.com/vikejs/vike/blob/main/vike/utils/getRandomId.ts
-const getRandomId = (length: number): string => {
-  let randomId = ''
-  while (randomId.length < length) {
-    randomId += Math.random().toString(36).slice(2)
-  }
-  return randomId.slice(0, length)
-}
-//#endregion
-
-//#region https://github.com/vikejs/vike/blob/main/vike/node/plugin/plugins/importUserCode/v1-design/getVikeConfig/transpileAndExecuteFile.ts
-/**
- * Transpile a file with esbuild
- */
-const transpileWithEsbuild = async (filePath: string): Promise<string> => {
-  if (!esbuild) {
-    try {
-      esbuild = await import('esbuild')
-    } catch (error) {
-      throw new Error(`Failed to load 'esbuild': ${error}`)
-    }
-  }
-  const result = await esbuild.build({
-    platform: 'node',
-    entryPoints: [filePath],
-    write: false,
-    target: ['esnext'],
-    logLevel: 'silent',
-    format: 'esm',
-    absWorkingDir: process.cwd(),
-    bundle: true
-  })
-
-  return result.outputFiles[0].text
-}
-
-/**
- * Get a temporary file path
- */
-const getTemporaryBuildFilePath = (filePath: string): string => {
-  const dirname = path.posix.dirname(filePath)
-  const filename = path.posix.basename(filePath)
-  return path.posix.join(dirname, `${filename}.build-${getRandomId(12)}.mjs`)
-}
-
-/**
- * Execute a file
- * Old function name: `executeTranspiledFile`
- */
-export const importFile = async (filePath: string): Promise<Record<string, unknown>> => {
-  const code = await transpileWithEsbuild(filePath)
-  // Alternative to using a temporary file: https://github.com/vitejs/vite/pull/13269
-  //  - But seems to break source maps, so I don't think it's worth it
-  const filePathTmp = getTemporaryBuildFilePath(filePath)
-  fs.writeFileSync(filePathTmp, code)
-  try {
-    return await import(pathToFileURL(filePathTmp).href)
-  } finally {
-    // Clean
-    fs.unlinkSync(filePathTmp)
-  }
-}
-//#endregion
