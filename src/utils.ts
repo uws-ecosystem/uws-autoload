@@ -14,8 +14,9 @@ export const transformToRoute = (filepath: string): string => {
   return filepath
     // Clean the url extensions
     .replace(/\.(ts|tsx|mjs|js|jsx|cjs)$/u, '')
+    // ALREADY DONE BEFORE
     // Fix windows slashes
-    .replaceAll('\\', '/')
+    // .replaceAll('\\', '/')
     // Handle wild card based routes
     // users/[...id]/profile.ts → users/*/profile
     .replaceAll(/\[\.\.\..*?\]/gu, '*')

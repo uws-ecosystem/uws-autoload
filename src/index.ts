@@ -77,7 +77,8 @@ export const autoloadRoutes = async (app: TemplatedApp, {
   }
 
   for (const file of sortRoutesByParams(files)) {
-    const filePath = `${routesDir}/${file}`
+    const universalFile = file.replaceAll('\\', '/')
+    const filePath = `${routesDir}/${universalFile}`
     const importedFile = await import(pathToFileURL(filePath).href)
 
     const resolvedImportName = typeof importKey === 'string' ? importKey : importKey(importedFile)
@@ -88,9 +89,9 @@ export const autoloadRoutes = async (app: TemplatedApp, {
     }
 
     if (typeof importedRoute === 'function') {
-      const matchedFile = file.match(/\/?\((.*?)\)/)
+      const matchedFile = universalFile.match(/\/?\((.*?)\)/)
       const method = matchedFile ? matchedFile[1] as HttpMethod : 'get'
-      const route = `${prefix}/${transformToRoute(file)}`
+      const route = `${prefix}/${transformToRoute(universalFile)}`
       app[method](route, importedRoute)
     } else {
       console.warn(`Exported function of ${filePath} is not a function`)
